@@ -1,7 +1,7 @@
 const { User } = require('../models/adminModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const Attendance = require('../models/adminModel');
+const { Attendance } = require('../models/adminModel');
 const exp = require('constants');
 
 exports.createEmployee = async (req, res) => {
@@ -40,12 +40,26 @@ exports.createEmployee = async (req, res) => {
     }
 };
 
+exports.getAllAttendance = async (req, res) => {
+    console.log('dapet gak');
+    try {
+        console.log('Get All Attendance');
+        const attendance = await Attendance.findAll({ order: [['createdAt', 'DESC']] });
+        res.status(200).json({ data: attendance });
+        console.log(attendance);
+    }
+    catch (error) {
+        console.log('masuk sini');
+        console.error('Get All Attendance Error:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 
 exports.updateEmployee = async (req, res) => {
     try {
         const { id } = req.params;
         const { name, position, department, address, status } = req.body;
-
+        console.log("masuk sini update employee");
         const employee = await User.findByPk(id);
         if (!employee) {
             return res.status(404).json({ message: 'Employee not found' });
@@ -86,7 +100,7 @@ exports.getEmployee = async (req, res) => {
         const { id } = req.params;
 
         const user = await User.findByPk(id);
-
+        console.log("masuk get");
         if (!user) {
             return res.status(404).json({ message: 'Employee not found' });
         }
@@ -123,6 +137,7 @@ exports.getAllEmployees = async (req, res) => {
 
 
 
+
 exports.getAttendance = async (req, res) => {
     try {
         const { id } = req.params;
@@ -134,3 +149,4 @@ exports.getAttendance = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
