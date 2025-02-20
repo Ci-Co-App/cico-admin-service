@@ -6,7 +6,7 @@ const exp = require('constants');
 
 exports.createEmployee = async (req, res) => {
     try {
-        const { name, email, password, position, department, address, status, photo_profile } = req.body;
+        const { name, email, password, position, department, address } = req.body;
 
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
@@ -20,11 +20,10 @@ exports.createEmployee = async (req, res) => {
             email,
             password: hashedPassword,
             role: 'employee',
-            photo_profile,
             position,
             department,
             address,
-            status: status || 'active',
+            status: 'active',
         });
 
         res.status(201).json({ message: 'Employee created successfully', data: user });
@@ -41,7 +40,7 @@ exports.createEmployee = async (req, res) => {
 };
 
 exports.getAllAttendance = async (req, res) => {
-    console.log('dapet gak');
+
     try {
         console.log('Get All Attendance');
         const attendance = await Attendance.findAll({ order: [['createdAt', 'DESC']] });
@@ -59,7 +58,7 @@ exports.updateEmployee = async (req, res) => {
     try {
         const { id } = req.params;
         const { name, position, department, address, status } = req.body;
-        console.log("masuk sini update employee");
+
         const employee = await User.findByPk(id);
         if (!employee) {
             return res.status(404).json({ message: 'Employee not found' });
@@ -100,7 +99,7 @@ exports.getEmployee = async (req, res) => {
         const { id } = req.params;
 
         const user = await User.findByPk(id);
-        console.log("masuk get");
+
         if (!user) {
             return res.status(404).json({ message: 'Employee not found' });
         }
