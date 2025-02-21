@@ -18,7 +18,7 @@ ENV PORT=3004
 ENV HOST=0.0.0.0
 
 # ✅ Expose the correct port for Cloud Run
-EXPOSE 8080
+EXPOSE 3002
 
 # ✅ Start the application
 CMD ["node", "src/server.js"]
