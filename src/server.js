@@ -35,5 +35,5 @@ app.use("/api/cico/admin", adminRoutes);
 })();
 
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3004;
 app.listen(PORT, () => console.log(`🚀 Admin Service Running on Port ${PORT}`));
