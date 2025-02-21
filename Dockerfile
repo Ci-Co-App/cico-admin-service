@@ -14,7 +14,7 @@ RUN npm install --only=production
 COPY . .
 
 # ✅ Set environment variables for Cloud Run
-ENV PORT=8080
+ENV PORT=3004
 ENV HOST=0.0.0.0
 
 # ✅ Expose the correct port for Cloud Run
